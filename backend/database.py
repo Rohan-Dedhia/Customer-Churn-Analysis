@@ -5,8 +5,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# We expect POSTGRES_URL in .env, fallback to a local default if not found
-DATABASE_URL = os.getenv("POSTGRES_URL", "postgresql://postgres:postgres@localhost:5432/postgres")
+# We expect DATABASE_URL in .env (for local) or Render environment variables
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is missing. Please set it in your .env file or deployment environment.")
+
+# Configure the connection to support SSL for Render PostgreSQL
+if "sslmode=require" not in DATABASE_URL:
+    if "?" in DATABASE_URL:
+        DATABASE_URL += "&sslmode=require"
+    else:
+        DATABASE_URL += "?sslmode=require"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
