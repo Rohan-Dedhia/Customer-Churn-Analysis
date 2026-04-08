@@ -4,7 +4,7 @@ import DashboardLayout from '@/components/DashboardLayout';
 import CustomerModal from '@/components/CustomerModal';
 import { Plus, Edit2, Trash2, Search, RefreshCw, Filter, X } from 'lucide-react';
 
-const API = 'http://localhost:8000';
+const API = 'https://customer-churn-analysis-17h4.onrender.com';
 const PAGE_SIZE = 500;
 
 export default function CustomersPage() {

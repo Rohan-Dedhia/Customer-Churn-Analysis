@@ -95,10 +95,10 @@ export default function DashboardPage() {
     setLoading(true); setFetchError(false);
     try {
       const urls = [
-        'http://localhost:8000/analytics/cohort',
-        'http://localhost:8000/analytics/retention',
-        'http://localhost:8000/analytics/segmentation',
-        'http://localhost:8000/analytics/geography',
+        'https://customer-churn-analysis-17h4.onrender.com/analytics/cohort',
+        'https://customer-churn-analysis-17h4.onrender.com/analytics/retention',
+        'https://customer-churn-analysis-17h4.onrender.com/analytics/segmentation',
+        'https://customer-churn-analysis-17h4.onrender.com/analytics/geography',
       ];
       const responses = await Promise.all(urls.map(u => fetch(u)));
       if (responses.some(r => !r.ok)) { setFetchError(true); return; }
@@ -118,7 +118,7 @@ export default function DashboardPage() {
     setLoadingTop(true);
     try {
       const params = new URLSearchParams({ limit: topLimit, year: yearFilter, status: statusFilter });
-      const res = await fetch(`http://localhost:8000/analytics/top_customers?${params}`);
+      const res = await fetch(`https://customer-churn-analysis-17h4.onrender.com/analytics/top_customers?${params}`);
       if (res.ok) {
         const data = await res.json();
         setTopCustomers(Array.isArray(data) ? data : []);
@@ -133,7 +133,7 @@ export default function DashboardPage() {
   const rebuildAndSync = async () => {
     setRebuilding(true);
     try {
-      await fetch('http://localhost:8000/analytics/refresh', { method: 'POST' });
+      await fetch('https://customer-churn-analysis-17h4.onrender.com/analytics/refresh', { method: 'POST' });
     } catch { /* ignore network error */ }
     finally { setRebuilding(false); }
     await fetchData();

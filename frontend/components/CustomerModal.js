@@ -45,7 +45,7 @@ export default function CustomerModal({ mode, customer, maxKey, onClose, onSaved
       if (payload.age) payload.age = parseInt(payload.age);
       if (!isEdit) payload.customerkey = maxKey + 1;
 
-      const url    = isEdit ? `http://localhost:8000/customers/${customer.customerkey}` : 'http://localhost:8000/customers/';
+      const url    = isEdit ? `https://customer-churn-analysis-17h4.onrender.com/customers/${customer.customerkey}` : 'https://customer-churn-analysis-17h4.onrender.com/customers/';
       const method = isEdit ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
